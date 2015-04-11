@@ -1,11 +1,3 @@
-;;; Echo unfinished commands after 0.1 seconds
-(setq echo-keystrokes 0.1)
-
-;;; Easily navigate Pascalcase words
-(global-subword-mode)
-
-;;; Turn off scrollbars
-(scroll-bar-mode -1)
 
 ;; get rid of default vc
 ;; (delete 'Git vc-handled-backends)
@@ -13,7 +5,6 @@
 ;; recentf
 ;; Maintain a list of recent files. C-x C-r to open from that list
 (recentf-mode t)
-; 50 files ought to be enough.
 (setq recentf-max-saved-items 50)
 
 (defun ido-recentf-open ()
@@ -32,10 +23,17 @@
 (blink-cursor-mode nil)
 (show-paren-mode 1)
 (setq disabled-command-function nil)
-
+;;; Echo unfinished commands after 0.1 seconds
+(setq echo-keystrokes 0.1)
+;;; Easily navigate Pascalcase words
+(global-subword-mode)
+;;; Turn off scrollbars
+(scroll-bar-mode -1)
+;; tooltips and menubar off
+(tooltip-mode -1)
+(tool-bar-mode -1)
 ;; Don't record sessions
 (setq auto-save-list-file-prefix nil)
-
 ;; Autosave cleanup
 (setq delete-auto-save-files t)
 ;; No backup
@@ -46,37 +44,27 @@
 (setq inhibit-startup-screen t)
 ;; No beep
 (setq visible-bell t)
-;; tooltips and menubar off
-(tooltip-mode -1)
+;; Shorter yes-or-no
+(fset 'yes-or-no-p 'y-or-n-p)
+;; Show line numbers
+(global-linum-mode 1)
 
 ;; Keys
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "C-x C-d") 'delete-region)
 (global-set-key (kbd "M-r") 'isearch-backward-regexp)
 (global-set-key (kbd "M-s") 'isearch-forward-regexp)
-(global-set-key (kbd "C-a") 'back-to-indentation-or-beginning)
-(global-set-key (kbd "M-u") 'my-upcase)
-(global-set-key (kbd "M-l") 'my-downcase)
-(global-set-key (kbd "M-c") 'my-capitalize)
 (global-set-key (kbd "C-M-\\") 'indent-region)
 (global-set-key (kbd "C-;") 'comment-region)
 (global-set-key (kbd "C-M-;") 'uncomment-region)
-(global-set-key "\C-ci" 'ido-goto-symbol)
 (global-set-key "\C-w" 'clipboard-kill-region)
 (global-set-key "\M-w" 'clipboard-kill-ring-save)
 (global-set-key "\C-y" 'clipboard-yank)
-(global-set-key (kbd "C-\\") 'undo-tree-redo)
 
-;; Shorter yes-or-no
-(fset 'yes-or-no-p 'y-or-n-p)
-
-(tool-bar-mode nil)
 
 ;; default directory
 (setq default-directory (substitute-in-file-name "$HOME"))
 
-;; Show line numbers
-(global-linum-mode 1)
 
 ;; Aliases
 (defalias 'rg 'rgrep)
